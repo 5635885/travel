@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mbg.mapper.GoodsOrderMapper">
+  <resultMap id="BaseResultMap" type="com.it.mbg.entity.GoodsOrder">
+    <id column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="sender_name" jdbcType="VARCHAR" property="senderName" />
+    <result column="sender_detail_address" jdbcType="VARCHAR" property="senderDetailAddress" />
+    <result column="receive_name" jdbcType="VARCHAR" property="receiveName" />
+    <result column="receive_address" jdbcType="VARCHAR" property="receiveAddress" />
+    <result column="order_weight" jdbcType="DOUBLE" property="orderWeight" />
+    <result column="order_volume" jdbcType="DOUBLE" property="orderVolume" />
+    <result column="order_note" jdbcType="VARCHAR" property="orderNote" />
+    <result column="transport_id" jdbcType="BIGINT" property="transportId" />
+    <result column="delivery_time" jdbcType="TIMESTAMP" property="deliveryTime" />
+    <result column="order_consign" jdbcType="VARCHAR" property="orderConsign" />
+    <result column="order_carrier" jdbcType="VARCHAR" property="orderCarrier" />
+    <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+    <result column="delete_status" jdbcType="INTEGER" property="deleteStatus" />
+    <result column="sender_province" jdbcType="VARCHAR" property="senderProvince" />
+    <result column="sender_city" jdbcType="VARCHAR" property="senderCity" />
+    <result column="sender_region" jdbcType="VARCHAR" property="senderRegion" />
+    <result column="order_path_id" jdbcType="BIGINT" property="orderPathId" />
+    <result column="customer_order_id" jdbcType="BIGINT" property="customerOrderId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="order_location_id" jdbcType="BIGINT" property="orderLocationId" />
+    <result column="transport_path_id" jdbcType="BIGINT" property="transportPathId" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="is_delivery" jdbcType="INTEGER" property="isDelivery" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="receive_mobile_telephone" jdbcType="VARCHAR" property="receiveMobileTelephone" />
+    <result column="sender_mobile_telephone" jdbcType="VARCHAR" property="senderMobileTelephone" />
+    <result column="receiver_province" jdbcType="VARCHAR" property="receiverProvince" />
+    <result column="receiver_city" jdbcType="VARCHAR" property="receiverCity" />
+    <result column="receiver_region" jdbcType="VARCHAR" property="receiverRegion" />
+    <result column="dispatch_time" jdbcType="TIMESTAMP" property="dispatchTime" />
+    <result column="ware_house_id" jdbcType="BIGINT" property="wareHouseId" />
+    <result column="cancellation_time" jdbcType="TIMESTAMP" property="cancellationTime" />
+    <result column="order_system_status" jdbcType="INTEGER" property="orderSystemStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    order_id, order_number, sender_name, sender_detail_address, receive_name, receive_address, 
+    order_weight, order_volume, order_note, transport_id, delivery_time, order_consign, 
+    order_carrier, order_status, delete_status, sender_province, sender_city, sender_region, 
+    order_path_id, customer_order_id, create_time, order_location_id, transport_path_id, 
+    finish_time, is_delivery, openid, receive_mobile_telephone, sender_mobile_telephone, 
+    receiver_province, receiver_city, receiver_region, dispatch_time, ware_house_id, 
+    cancellation_time, order_system_status
+  </sql>
+  <select id="selectByExample" parameterType="com.it.mbg.entity.GoodsOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods_order
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from goods_order
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.it.mbg.entity.GoodsOrderExample">
+    delete from goods_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.it.mbg.entity.GoodsOrder">
+    insert into goods_order (order_id, order_number, sender_name, 
+      sender_detail_address, receive_name, receive_address, 
+      order_weight, order_volume, order_note, 
+      transport_id, delivery_time, order_consign, 
+      order_carrier, order_status, delete_status, 
+      sender_province, sender_city, sender_region, 
+      order_path_id, customer_order_id, create_time, 
+      order_location_id, transport_path_id, finish_time, 
+      is_delivery, openid, receive_mobile_telephone, 
+      sender_mobile_telephone, receiver_province, 
+      receiver_city, receiver_region, dispatch_time, 
+      ware_house_id, cancellation_time, order_system_status
+      )
+    values (#{orderId,jdbcType=BIGINT}, #{orderNumber,jdbcType=VARCHAR}, #{senderName,jdbcType=VARCHAR}, 
+      #{senderDetailAddress,jdbcType=VARCHAR}, #{receiveName,jdbcType=VARCHAR}, #{receiveAddress,jdbcType=VARCHAR}, 
+      #{orderWeight,jdbcType=DOUBLE}, #{orderVolume,jdbcType=DOUBLE}, #{orderNote,jdbcType=VARCHAR}, 
+      #{transportId,jdbcType=BIGINT}, #{deliveryTime,jdbcType=TIMESTAMP}, #{orderConsign,jdbcType=VARCHAR}, 
+      #{orderCarrier,jdbcType=VARCHAR}, #{orderStatus,jdbcType=INTEGER}, #{deleteStatus,jdbcType=INTEGER}, 
+      #{senderProvince,jdbcType=VARCHAR}, #{senderCity,jdbcType=VARCHAR}, #{senderRegion,jdbcType=VARCHAR}, 
+      #{orderPathId,jdbcType=BIGINT}, #{customerOrderId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{orderLocationId,jdbcType=BIGINT}, #{transportPathId,jdbcType=BIGINT}, #{finishTime,jdbcType=TIMESTAMP}, 
+      #{isDelivery,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{receiveMobileTelephone,jdbcType=VARCHAR}, 
+      #{senderMobileTelephone,jdbcType=VARCHAR}, #{receiverProvince,jdbcType=VARCHAR}, 
+      #{receiverCity,jdbcType=VARCHAR}, #{receiverRegion,jdbcType=VARCHAR}, #{dispatchTime,jdbcType=TIMESTAMP}, 
+      #{wareHouseId,jdbcType=BIGINT}, #{cancellationTime,jdbcType=TIMESTAMP}, #{orderSystemStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.it.mbg.entity.GoodsOrder" useGeneratedKeys="true" keyProperty="orderId">
+    insert into goods_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orderNumber != null">
+        order_number,
+      </if>
+      <if test="senderName != null">
+        sender_name,
+      </if>
+      <if test="senderDetailAddress != null">
+        sender_detail_address,
+      </if>
+      <if test="receiveName != null">
+        receive_name,
+      </if>
+      <if test="receiveAddress != null">
+        receive_address,
+      </if>
+      <if test="orderWeight != null">
+        order_weight,
+      </if>
+      <if test="orderVolume != null">
+        order_volume,
+      </if>
+      <if test="orderNote != null">
+        order_note,
+      </if>
+      <if test="transportId != null">
+        transport_id,
+      </if>
+      <if test="deliveryTime != null">
+        delivery_time,
+      </if>
+      <if test="orderConsign != null">
+        order_consign,
+      </if>
+      <if test="orderCarrier != null">
+        order_carrier,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="deleteStatus != null">
+        delete_status,
+      </if>
+      <if test="senderProvince != null">
+        sender_province,
+      </if>
+      <if test="senderCity != null">
+        sender_city,
+      </if>
+      <if test="senderRegion != null">
+        sender_region,
+      </if>
+      <if test="orderPathId != null">
+        order_path_id,
+      </if>
+      <if test="customerOrderId != null">
+        customer_order_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="orderLocationId != null">
+        order_location_id,
+      </if>
+      <if test="transportPathId != null">
+        transport_path_id,
+      </if>
+      <if test="finishTime != null">
+        finish_time,
+      </if>
+      <if test="isDelivery != null">
+        is_delivery,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+      <if test="receiveMobileTelephone != null">
+        receive_mobile_telephone,
+      </if>
+      <if test="senderMobileTelephone != null">
+        sender_mobile_telephone,
+      </if>
+      <if test="receiverProvince != null">
+        receiver_province,
+      </if>
+      <if test="receiverCity != null">
+        receiver_city,
+      </if>
+      <if test="receiverRegion != null">
+        receiver_region,
+      </if>
+      <if test="dispatchTime != null">
+        dispatch_time,
+      </if>
+      <if test="wareHouseId != null">
+        ware_house_id,
+      </if>
+      <if test="cancellationTime != null">
+        cancellation_time,
+      </if>
+      <if test="orderSystemStatus != null">
+        order_system_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="senderName != null">
+        #{senderName,jdbcType=VARCHAR},
+      </if>
+      <if test="senderDetailAddress != null">
+        #{senderDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveName != null">
+        #{receiveName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAddress != null">
+        #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderWeight != null">
+        #{orderWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="orderVolume != null">
+        #{orderVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="orderNote != null">
+        #{orderNote,jdbcType=VARCHAR},
+      </if>
+      <if test="transportId != null">
+        #{transportId,jdbcType=BIGINT},
+      </if>
+      <if test="deliveryTime != null">
+        #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderConsign != null">
+        #{orderConsign,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCarrier != null">
+        #{orderCarrier,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null">
+        #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="senderProvince != null">
+        #{senderProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="senderCity != null">
+        #{senderCity,jdbcType=VARCHAR},
+      </if>
+      <if test="senderRegion != null">
+        #{senderRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPathId != null">
+        #{orderPathId,jdbcType=BIGINT},
+      </if>
+      <if test="customerOrderId != null">
+        #{customerOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderLocationId != null">
+        #{orderLocationId,jdbcType=BIGINT},
+      </if>
+      <if test="transportPathId != null">
+        #{transportPathId,jdbcType=BIGINT},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelivery != null">
+        #{isDelivery,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveMobileTelephone != null">
+        #{receiveMobileTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="senderMobileTelephone != null">
+        #{senderMobileTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverProvince != null">
+        #{receiverProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverCity != null">
+        #{receiverCity,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverRegion != null">
+        #{receiverRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="dispatchTime != null">
+        #{dispatchTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wareHouseId != null">
+        #{wareHouseId,jdbcType=BIGINT},
+      </if>
+      <if test="cancellationTime != null">
+        #{cancellationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderSystemStatus != null">
+        #{orderSystemStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.it.mbg.entity.GoodsOrderExample" resultType="java.lang.Long">
+    select count(*) from goods_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update goods_order
+    <set>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderNumber != null">
+        order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.senderName != null">
+        sender_name = #{record.senderName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.senderDetailAddress != null">
+        sender_detail_address = #{record.senderDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveName != null">
+        receive_name = #{record.receiveName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveAddress != null">
+        receive_address = #{record.receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderWeight != null">
+        order_weight = #{record.orderWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="record.orderVolume != null">
+        order_volume = #{record.orderVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="record.orderNote != null">
+        order_note = #{record.orderNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transportId != null">
+        transport_id = #{record.transportId,jdbcType=BIGINT},
+      </if>
+      <if test="record.deliveryTime != null">
+        delivery_time = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderConsign != null">
+        order_consign = #{record.orderConsign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderCarrier != null">
+        order_carrier = #{record.orderCarrier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatus != null">
+        order_status = #{record.orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.deleteStatus != null">
+        delete_status = #{record.deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.senderProvince != null">
+        sender_province = #{record.senderProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.senderCity != null">
+        sender_city = #{record.senderCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.senderRegion != null">
+        sender_region = #{record.senderRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderPathId != null">
+        order_path_id = #{record.orderPathId,jdbcType=BIGINT},
+      </if>
+      <if test="record.customerOrderId != null">
+        customer_order_id = #{record.customerOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderLocationId != null">
+        order_location_id = #{record.orderLocationId,jdbcType=BIGINT},
+      </if>
+      <if test="record.transportPathId != null">
+        transport_path_id = #{record.transportPathId,jdbcType=BIGINT},
+      </if>
+      <if test="record.finishTime != null">
+        finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDelivery != null">
+        is_delivery = #{record.isDelivery,jdbcType=INTEGER},
+      </if>
+      <if test="record.openid != null">
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveMobileTelephone != null">
+        receive_mobile_telephone = #{record.receiveMobileTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.senderMobileTelephone != null">
+        sender_mobile_telephone = #{record.senderMobileTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverProvince != null">
+        receiver_province = #{record.receiverProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverCity != null">
+        receiver_city = #{record.receiverCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverRegion != null">
+        receiver_region = #{record.receiverRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dispatchTime != null">
+        dispatch_time = #{record.dispatchTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.wareHouseId != null">
+        ware_house_id = #{record.wareHouseId,jdbcType=BIGINT},
+      </if>
+      <if test="record.cancellationTime != null">
+        cancellation_time = #{record.cancellationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderSystemStatus != null">
+        order_system_status = #{record.orderSystemStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update goods_order
+    set order_id = #{record.orderId,jdbcType=BIGINT},
+      order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      sender_name = #{record.senderName,jdbcType=VARCHAR},
+      sender_detail_address = #{record.senderDetailAddress,jdbcType=VARCHAR},
+      receive_name = #{record.receiveName,jdbcType=VARCHAR},
+      receive_address = #{record.receiveAddress,jdbcType=VARCHAR},
+      order_weight = #{record.orderWeight,jdbcType=DOUBLE},
+      order_volume = #{record.orderVolume,jdbcType=DOUBLE},
+      order_note = #{record.orderNote,jdbcType=VARCHAR},
+      transport_id = #{record.transportId,jdbcType=BIGINT},
+      delivery_time = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      order_consign = #{record.orderConsign,jdbcType=VARCHAR},
+      order_carrier = #{record.orderCarrier,jdbcType=VARCHAR},
+      order_status = #{record.orderStatus,jdbcType=INTEGER},
+      delete_status = #{record.deleteStatus,jdbcType=INTEGER},
+      sender_province = #{record.senderProvince,jdbcType=VARCHAR},
+      sender_city = #{record.senderCity,jdbcType=VARCHAR},
+      sender_region = #{record.senderRegion,jdbcType=VARCHAR},
+      order_path_id = #{record.orderPathId,jdbcType=BIGINT},
+      customer_order_id = #{record.customerOrderId,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      order_location_id = #{record.orderLocationId,jdbcType=BIGINT},
+      transport_path_id = #{record.transportPathId,jdbcType=BIGINT},
+      finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      is_delivery = #{record.isDelivery,jdbcType=INTEGER},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      receive_mobile_telephone = #{record.receiveMobileTelephone,jdbcType=VARCHAR},
+      sender_mobile_telephone = #{record.senderMobileTelephone,jdbcType=VARCHAR},
+      receiver_province = #{record.receiverProvince,jdbcType=VARCHAR},
+      receiver_city = #{record.receiverCity,jdbcType=VARCHAR},
+      receiver_region = #{record.receiverRegion,jdbcType=VARCHAR},
+      dispatch_time = #{record.dispatchTime,jdbcType=TIMESTAMP},
+      ware_house_id = #{record.wareHouseId,jdbcType=BIGINT},
+      cancellation_time = #{record.cancellationTime,jdbcType=TIMESTAMP},
+      order_system_status = #{record.orderSystemStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.it.mbg.entity.GoodsOrder">
+    update goods_order
+    <set>
+      <if test="orderNumber != null">
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="senderName != null">
+        sender_name = #{senderName,jdbcType=VARCHAR},
+      </if>
+      <if test="senderDetailAddress != null">
+        sender_detail_address = #{senderDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveName != null">
+        receive_name = #{receiveName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAddress != null">
+        receive_address = #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderWeight != null">
+        order_weight = #{orderWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="orderVolume != null">
+        order_volume = #{orderVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="orderNote != null">
+        order_note = #{orderNote,jdbcType=VARCHAR},
+      </if>
+      <if test="transportId != null">
+        transport_id = #{transportId,jdbcType=BIGINT},
+      </if>
+      <if test="deliveryTime != null">
+        delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderConsign != null">
+        order_consign = #{orderConsign,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCarrier != null">
+        order_carrier = #{orderCarrier,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null">
+        delete_status = #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="senderProvince != null">
+        sender_province = #{senderProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="senderCity != null">
+        sender_city = #{senderCity,jdbcType=VARCHAR},
+      </if>
+      <if test="senderRegion != null">
+        sender_region = #{senderRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPathId != null">
+        order_path_id = #{orderPathId,jdbcType=BIGINT},
+      </if>
+      <if test="customerOrderId != null">
+        customer_order_id = #{customerOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderLocationId != null">
+        order_location_id = #{orderLocationId,jdbcType=BIGINT},
+      </if>
+      <if test="transportPathId != null">
+        transport_path_id = #{transportPathId,jdbcType=BIGINT},
+      </if>
+      <if test="finishTime != null">
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelivery != null">
+        is_delivery = #{isDelivery,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveMobileTelephone != null">
+        receive_mobile_telephone = #{receiveMobileTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="senderMobileTelephone != null">
+        sender_mobile_telephone = #{senderMobileTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverProvince != null">
+        receiver_province = #{receiverProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverCity != null">
+        receiver_city = #{receiverCity,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverRegion != null">
+        receiver_region = #{receiverRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="dispatchTime != null">
+        dispatch_time = #{dispatchTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wareHouseId != null">
+        ware_house_id = #{wareHouseId,jdbcType=BIGINT},
+      </if>
+      <if test="cancellationTime != null">
+        cancellation_time = #{cancellationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderSystemStatus != null">
+        order_system_status = #{orderSystemStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.it.mbg.entity.GoodsOrder">
+    update goods_order
+    set order_number = #{orderNumber,jdbcType=VARCHAR},
+      sender_name = #{senderName,jdbcType=VARCHAR},
+      sender_detail_address = #{senderDetailAddress,jdbcType=VARCHAR},
+      receive_name = #{receiveName,jdbcType=VARCHAR},
+      receive_address = #{receiveAddress,jdbcType=VARCHAR},
+      order_weight = #{orderWeight,jdbcType=DOUBLE},
+      order_volume = #{orderVolume,jdbcType=DOUBLE},
+      order_note = #{orderNote,jdbcType=VARCHAR},
+      transport_id = #{transportId,jdbcType=BIGINT},
+      delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      order_consign = #{orderConsign,jdbcType=VARCHAR},
+      order_carrier = #{orderCarrier,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      delete_status = #{deleteStatus,jdbcType=INTEGER},
+      sender_province = #{senderProvince,jdbcType=VARCHAR},
+      sender_city = #{senderCity,jdbcType=VARCHAR},
+      sender_region = #{senderRegion,jdbcType=VARCHAR},
+      order_path_id = #{orderPathId,jdbcType=BIGINT},
+      customer_order_id = #{customerOrderId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      order_location_id = #{orderLocationId,jdbcType=BIGINT},
+      transport_path_id = #{transportPathId,jdbcType=BIGINT},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      is_delivery = #{isDelivery,jdbcType=INTEGER},
+      openid = #{openid,jdbcType=VARCHAR},
+      receive_mobile_telephone = #{receiveMobileTelephone,jdbcType=VARCHAR},
+      sender_mobile_telephone = #{senderMobileTelephone,jdbcType=VARCHAR},
+      receiver_province = #{receiverProvince,jdbcType=VARCHAR},
+      receiver_city = #{receiverCity,jdbcType=VARCHAR},
+      receiver_region = #{receiverRegion,jdbcType=VARCHAR},
+      dispatch_time = #{dispatchTime,jdbcType=TIMESTAMP},
+      ware_house_id = #{wareHouseId,jdbcType=BIGINT},
+      cancellation_time = #{cancellationTime,jdbcType=TIMESTAMP},
+      order_system_status = #{orderSystemStatus,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+</mapper>

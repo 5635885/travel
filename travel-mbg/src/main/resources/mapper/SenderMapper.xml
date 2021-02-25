@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mbg.mapper.SenderMapper">
+  <resultMap id="BaseResultMap" type="com.it.mbg.entity.Sender">
+    <id column="sender_id" jdbcType="BIGINT" property="senderId" />
+    <result column="sender_name" jdbcType="VARCHAR" property="senderName" />
+    <result column="sender_province_name" jdbcType="VARCHAR" property="senderProvinceName" />
+    <result column="send_exp_area_name" jdbcType="VARCHAR" property="sendExpAreaName" />
+    <result column="send_tel" jdbcType="VARCHAR" property="sendTel" />
+    <result column="send_mobile" jdbcType="VARCHAR" property="sendMobile" />
+    <result column="post_code" jdbcType="VARCHAR" property="postCode" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="sender_compary" jdbcType="VARCHAR" property="senderCompary" />
+    <result column="customer_order_id" jdbcType="BIGINT" property="customerOrderId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    sender_id, sender_name, sender_province_name, send_exp_area_name, send_tel, send_mobile, 
+    post_code, city_name, address, sender_compary, customer_order_id
+  </sql>
+  <select id="selectByExample" parameterType="com.it.mbg.entity.SenderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sender
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sender
+    where sender_id = #{senderId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sender
+    where sender_id = #{senderId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.it.mbg.entity.SenderExample">
+    delete from sender
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.it.mbg.entity.Sender">
+    insert into sender (sender_id, sender_name, sender_province_name, 
+      send_exp_area_name, send_tel, send_mobile, 
+      post_code, city_name, address, 
+      sender_compary, customer_order_id)
+    values (#{senderId,jdbcType=BIGINT}, #{senderName,jdbcType=VARCHAR}, #{senderProvinceName,jdbcType=VARCHAR}, 
+      #{sendExpAreaName,jdbcType=VARCHAR}, #{sendTel,jdbcType=VARCHAR}, #{sendMobile,jdbcType=VARCHAR}, 
+      #{postCode,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{senderCompary,jdbcType=VARCHAR}, #{customerOrderId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.it.mbg.entity.Sender">
+    insert into sender
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="senderId != null">
+        sender_id,
+      </if>
+      <if test="senderName != null">
+        sender_name,
+      </if>
+      <if test="senderProvinceName != null">
+        sender_province_name,
+      </if>
+      <if test="sendExpAreaName != null">
+        send_exp_area_name,
+      </if>
+      <if test="sendTel != null">
+        send_tel,
+      </if>
+      <if test="sendMobile != null">
+        send_mobile,
+      </if>
+      <if test="postCode != null">
+        post_code,
+      </if>
+      <if test="cityName != null">
+        city_name,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="senderCompary != null">
+        sender_compary,
+      </if>
+      <if test="customerOrderId != null">
+        customer_order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="senderId != null">
+        #{senderId,jdbcType=BIGINT},
+      </if>
+      <if test="senderName != null">
+        #{senderName,jdbcType=VARCHAR},
+      </if>
+      <if test="senderProvinceName != null">
+        #{senderProvinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="sendExpAreaName != null">
+        #{sendExpAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTel != null">
+        #{sendTel,jdbcType=VARCHAR},
+      </if>
+      <if test="sendMobile != null">
+        #{sendMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="senderCompary != null">
+        #{senderCompary,jdbcType=VARCHAR},
+      </if>
+      <if test="customerOrderId != null">
+        #{customerOrderId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.it.mbg.entity.SenderExample" resultType="java.lang.Long">
+    select count(*) from sender
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sender
+    <set>
+      <if test="record.senderId != null">
+        sender_id = #{record.senderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.senderName != null">
+        sender_name = #{record.senderName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.senderProvinceName != null">
+        sender_province_name = #{record.senderProvinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendExpAreaName != null">
+        send_exp_area_name = #{record.sendExpAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendTel != null">
+        send_tel = #{record.sendTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendMobile != null">
+        send_mobile = #{record.sendMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postCode != null">
+        post_code = #{record.postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityName != null">
+        city_name = #{record.cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.senderCompary != null">
+        sender_compary = #{record.senderCompary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerOrderId != null">
+        customer_order_id = #{record.customerOrderId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sender
+    set sender_id = #{record.senderId,jdbcType=BIGINT},
+      sender_name = #{record.senderName,jdbcType=VARCHAR},
+      sender_province_name = #{record.senderProvinceName,jdbcType=VARCHAR},
+      send_exp_area_name = #{record.sendExpAreaName,jdbcType=VARCHAR},
+      send_tel = #{record.sendTel,jdbcType=VARCHAR},
+      send_mobile = #{record.sendMobile,jdbcType=VARCHAR},
+      post_code = #{record.postCode,jdbcType=VARCHAR},
+      city_name = #{record.cityName,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      sender_compary = #{record.senderCompary,jdbcType=VARCHAR},
+      customer_order_id = #{record.customerOrderId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.it.mbg.entity.Sender">
+    update sender
+    <set>
+      <if test="senderName != null">
+        sender_name = #{senderName,jdbcType=VARCHAR},
+      </if>
+      <if test="senderProvinceName != null">
+        sender_province_name = #{senderProvinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="sendExpAreaName != null">
+        send_exp_area_name = #{sendExpAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTel != null">
+        send_tel = #{sendTel,jdbcType=VARCHAR},
+      </if>
+      <if test="sendMobile != null">
+        send_mobile = #{sendMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="senderCompary != null">
+        sender_compary = #{senderCompary,jdbcType=VARCHAR},
+      </if>
+      <if test="customerOrderId != null">
+        customer_order_id = #{customerOrderId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where sender_id = #{senderId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.it.mbg.entity.Sender">
+    update sender
+    set sender_name = #{senderName,jdbcType=VARCHAR},
+      sender_province_name = #{senderProvinceName,jdbcType=VARCHAR},
+      send_exp_area_name = #{sendExpAreaName,jdbcType=VARCHAR},
+      send_tel = #{sendTel,jdbcType=VARCHAR},
+      send_mobile = #{sendMobile,jdbcType=VARCHAR},
+      post_code = #{postCode,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      sender_compary = #{senderCompary,jdbcType=VARCHAR},
+      customer_order_id = #{customerOrderId,jdbcType=BIGINT}
+    where sender_id = #{senderId,jdbcType=BIGINT}
+  </update>
+</mapper>

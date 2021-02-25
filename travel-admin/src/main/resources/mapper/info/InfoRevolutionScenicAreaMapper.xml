@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.traveladmin.modules.info.mapper.InfoRevolutionScenicAreaMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.it.traveladmin.modules.info.model.InfoRevolutionScenicArea">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="category" property="category" />
+        <result column="city" property="city" />
+        <result column="province" property="province" />
+        <result column="country" property="country" />
+        <result column="villager" property="villager" />
+        <result column="address" property="address" />
+        <result column="opening_hours" property="openingHours" />
+        <result column="tickets" property="tickets" />
+        <result column="surrounding_nearby" property="surroundingNearby" />
+        <result column="crated_time" property="cratedTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>

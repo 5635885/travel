@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mbg.mapper.WxPayMapper">
+  <resultMap id="BaseResultMap" type="com.it.mbg.entity.WxPay">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="trade_type" jdbcType="VARCHAR" property="tradeType" />
+    <result column="total_fee" jdbcType="DECIMAL" property="totalFee" />
+    <result column="settlement_total_fee" jdbcType="DECIMAL" property="settlementTotalFee" />
+    <result column="time_end" jdbcType="TIMESTAMP" property="timeEnd" />
+    <result column="cash_fee" jdbcType="DECIMAL" property="cashFee" />
+    <result column="cash_fee_type" jdbcType="VARCHAR" property="cashFeeType" />
+    <result column="transaction_id" jdbcType="VARCHAR" property="transactionId" />
+    <result column="out_trade_no" jdbcType="VARCHAR" property="outTradeNo" />
+    <result column="result_code_status" jdbcType="VARCHAR" property="resultCodeStatus" />
+    <result column="err_code" jdbcType="VARCHAR" property="errCode" />
+    <result column="err_code_des" jdbcType="VARCHAR" property="errCodeDes" />
+    <result column="pay_status" jdbcType="INTEGER" property="payStatus" />
+    <result column="try_count" jdbcType="INTEGER" property="tryCount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_time, update_time, openid, trade_type, total_fee, settlement_total_fee, 
+    time_end, cash_fee, cash_fee_type, transaction_id, out_trade_no, result_code_status, 
+    err_code, err_code_des, pay_status, try_count
+  </sql>
+  <select id="selectByExample" parameterType="com.it.mbg.entity.WxPayExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wx_pay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wx_pay
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from wx_pay
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.it.mbg.entity.WxPayExample">
+    delete from wx_pay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.it.mbg.entity.WxPay">
+    insert into wx_pay (id, create_time, update_time, 
+      openid, trade_type, total_fee, 
+      settlement_total_fee, time_end, cash_fee, 
+      cash_fee_type, transaction_id, out_trade_no, 
+      result_code_status, err_code, err_code_des, 
+      pay_status, try_count)
+    values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{openid,jdbcType=VARCHAR}, #{tradeType,jdbcType=VARCHAR}, #{totalFee,jdbcType=DECIMAL}, 
+      #{settlementTotalFee,jdbcType=DECIMAL}, #{timeEnd,jdbcType=TIMESTAMP}, #{cashFee,jdbcType=DECIMAL}, 
+      #{cashFeeType,jdbcType=VARCHAR}, #{transactionId,jdbcType=VARCHAR}, #{outTradeNo,jdbcType=VARCHAR}, 
+      #{resultCodeStatus,jdbcType=VARCHAR}, #{errCode,jdbcType=VARCHAR}, #{errCodeDes,jdbcType=VARCHAR}, 
+      #{payStatus,jdbcType=INTEGER}, #{tryCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.it.mbg.entity.WxPay">
+    insert into wx_pay
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+      <if test="tradeType != null">
+        trade_type,
+      </if>
+      <if test="totalFee != null">
+        total_fee,
+      </if>
+      <if test="settlementTotalFee != null">
+        settlement_total_fee,
+      </if>
+      <if test="timeEnd != null">
+        time_end,
+      </if>
+      <if test="cashFee != null">
+        cash_fee,
+      </if>
+      <if test="cashFeeType != null">
+        cash_fee_type,
+      </if>
+      <if test="transactionId != null">
+        transaction_id,
+      </if>
+      <if test="outTradeNo != null">
+        out_trade_no,
+      </if>
+      <if test="resultCodeStatus != null">
+        result_code_status,
+      </if>
+      <if test="errCode != null">
+        err_code,
+      </if>
+      <if test="errCodeDes != null">
+        err_code_des,
+      </if>
+      <if test="payStatus != null">
+        pay_status,
+      </if>
+      <if test="tryCount != null">
+        try_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeType != null">
+        #{tradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null">
+        #{totalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="settlementTotalFee != null">
+        #{settlementTotalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="timeEnd != null">
+        #{timeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cashFee != null">
+        #{cashFee,jdbcType=DECIMAL},
+      </if>
+      <if test="cashFeeType != null">
+        #{cashFeeType,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionId != null">
+        #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null">
+        #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="resultCodeStatus != null">
+        #{resultCodeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="errCode != null">
+        #{errCode,jdbcType=VARCHAR},
+      </if>
+      <if test="errCodeDes != null">
+        #{errCodeDes,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null">
+        #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="tryCount != null">
+        #{tryCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.it.mbg.entity.WxPayExample" resultType="java.lang.Long">
+    select count(*) from wx_pay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update wx_pay
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.openid != null">
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradeType != null">
+        trade_type = #{record.tradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalFee != null">
+        total_fee = #{record.totalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.settlementTotalFee != null">
+        settlement_total_fee = #{record.settlementTotalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.timeEnd != null">
+        time_end = #{record.timeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cashFee != null">
+        cash_fee = #{record.cashFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cashFeeType != null">
+        cash_fee_type = #{record.cashFeeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transactionId != null">
+        transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outTradeNo != null">
+        out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resultCodeStatus != null">
+        result_code_status = #{record.resultCodeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errCode != null">
+        err_code = #{record.errCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errCodeDes != null">
+        err_code_des = #{record.errCodeDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payStatus != null">
+        pay_status = #{record.payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.tryCount != null">
+        try_count = #{record.tryCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update wx_pay
+    set id = #{record.id,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      trade_type = #{record.tradeType,jdbcType=VARCHAR},
+      total_fee = #{record.totalFee,jdbcType=DECIMAL},
+      settlement_total_fee = #{record.settlementTotalFee,jdbcType=DECIMAL},
+      time_end = #{record.timeEnd,jdbcType=TIMESTAMP},
+      cash_fee = #{record.cashFee,jdbcType=DECIMAL},
+      cash_fee_type = #{record.cashFeeType,jdbcType=VARCHAR},
+      transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+      out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR},
+      result_code_status = #{record.resultCodeStatus,jdbcType=VARCHAR},
+      err_code = #{record.errCode,jdbcType=VARCHAR},
+      err_code_des = #{record.errCodeDes,jdbcType=VARCHAR},
+      pay_status = #{record.payStatus,jdbcType=INTEGER},
+      try_count = #{record.tryCount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.it.mbg.entity.WxPay">
+    update wx_pay
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeType != null">
+        trade_type = #{tradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null">
+        total_fee = #{totalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="settlementTotalFee != null">
+        settlement_total_fee = #{settlementTotalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="timeEnd != null">
+        time_end = #{timeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cashFee != null">
+        cash_fee = #{cashFee,jdbcType=DECIMAL},
+      </if>
+      <if test="cashFeeType != null">
+        cash_fee_type = #{cashFeeType,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionId != null">
+        transaction_id = #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null">
+        out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="resultCodeStatus != null">
+        result_code_status = #{resultCodeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="errCode != null">
+        err_code = #{errCode,jdbcType=VARCHAR},
+      </if>
+      <if test="errCodeDes != null">
+        err_code_des = #{errCodeDes,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null">
+        pay_status = #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="tryCount != null">
+        try_count = #{tryCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.it.mbg.entity.WxPay">
+    update wx_pay
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      openid = #{openid,jdbcType=VARCHAR},
+      trade_type = #{tradeType,jdbcType=VARCHAR},
+      total_fee = #{totalFee,jdbcType=DECIMAL},
+      settlement_total_fee = #{settlementTotalFee,jdbcType=DECIMAL},
+      time_end = #{timeEnd,jdbcType=TIMESTAMP},
+      cash_fee = #{cashFee,jdbcType=DECIMAL},
+      cash_fee_type = #{cashFeeType,jdbcType=VARCHAR},
+      transaction_id = #{transactionId,jdbcType=VARCHAR},
+      out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      result_code_status = #{resultCodeStatus,jdbcType=VARCHAR},
+      err_code = #{errCode,jdbcType=VARCHAR},
+      err_code_des = #{errCodeDes,jdbcType=VARCHAR},
+      pay_status = #{payStatus,jdbcType=INTEGER},
+      try_count = #{tryCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

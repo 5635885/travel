@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mbg.mapper.VehicleTypeMapper">
+  <resultMap id="BaseResultMap" type="com.it.mbg.entity.VehicleType">
+    <id column="vehicle_type_id" jdbcType="BIGINT" property="vehicleTypeId" />
+    <result column="vehicle_type_message" jdbcType="VARCHAR" property="vehicleTypeMessage" />
+    <result column="vehicle_type_code" jdbcType="INTEGER" property="vehicleTypeCode" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="vehicle_type_status" jdbcType="INTEGER" property="vehicleTypeStatus" />
+    <result column="prospective_driving_id" jdbcType="BIGINT" property="prospectiveDrivingId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    vehicle_type_id, vehicle_type_message, vehicle_type_code, create_time, update_time, 
+    vehicle_type_status, prospective_driving_id
+  </sql>
+  <select id="selectByExample" parameterType="com.it.mbg.entity.VehicleTypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vehicle_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from vehicle_type
+    where vehicle_type_id = #{vehicleTypeId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from vehicle_type
+    where vehicle_type_id = #{vehicleTypeId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.it.mbg.entity.VehicleTypeExample">
+    delete from vehicle_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.it.mbg.entity.VehicleType">
+    insert into vehicle_type (vehicle_type_id, vehicle_type_message, 
+      vehicle_type_code, create_time, update_time, 
+      vehicle_type_status, prospective_driving_id)
+    values (#{vehicleTypeId,jdbcType=BIGINT}, #{vehicleTypeMessage,jdbcType=VARCHAR}, 
+      #{vehicleTypeCode,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{vehicleTypeStatus,jdbcType=INTEGER}, #{prospectiveDrivingId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.it.mbg.entity.VehicleType">
+    insert into vehicle_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vehicleTypeId != null">
+        vehicle_type_id,
+      </if>
+      <if test="vehicleTypeMessage != null">
+        vehicle_type_message,
+      </if>
+      <if test="vehicleTypeCode != null">
+        vehicle_type_code,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="vehicleTypeStatus != null">
+        vehicle_type_status,
+      </if>
+      <if test="prospectiveDrivingId != null">
+        prospective_driving_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vehicleTypeId != null">
+        #{vehicleTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="vehicleTypeMessage != null">
+        #{vehicleTypeMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleTypeCode != null">
+        #{vehicleTypeCode,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vehicleTypeStatus != null">
+        #{vehicleTypeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="prospectiveDrivingId != null">
+        #{prospectiveDrivingId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.it.mbg.entity.VehicleTypeExample" resultType="java.lang.Long">
+    select count(*) from vehicle_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update vehicle_type
+    <set>
+      <if test="record.vehicleTypeId != null">
+        vehicle_type_id = #{record.vehicleTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.vehicleTypeMessage != null">
+        vehicle_type_message = #{record.vehicleTypeMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleTypeCode != null">
+        vehicle_type_code = #{record.vehicleTypeCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.vehicleTypeStatus != null">
+        vehicle_type_status = #{record.vehicleTypeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.prospectiveDrivingId != null">
+        prospective_driving_id = #{record.prospectiveDrivingId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update vehicle_type
+    set vehicle_type_id = #{record.vehicleTypeId,jdbcType=BIGINT},
+      vehicle_type_message = #{record.vehicleTypeMessage,jdbcType=VARCHAR},
+      vehicle_type_code = #{record.vehicleTypeCode,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      vehicle_type_status = #{record.vehicleTypeStatus,jdbcType=INTEGER},
+      prospective_driving_id = #{record.prospectiveDrivingId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.it.mbg.entity.VehicleType">
+    update vehicle_type
+    <set>
+      <if test="vehicleTypeMessage != null">
+        vehicle_type_message = #{vehicleTypeMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleTypeCode != null">
+        vehicle_type_code = #{vehicleTypeCode,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vehicleTypeStatus != null">
+        vehicle_type_status = #{vehicleTypeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="prospectiveDrivingId != null">
+        prospective_driving_id = #{prospectiveDrivingId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where vehicle_type_id = #{vehicleTypeId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.it.mbg.entity.VehicleType">
+    update vehicle_type
+    set vehicle_type_message = #{vehicleTypeMessage,jdbcType=VARCHAR},
+      vehicle_type_code = #{vehicleTypeCode,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      vehicle_type_status = #{vehicleTypeStatus,jdbcType=INTEGER},
+      prospective_driving_id = #{prospectiveDrivingId,jdbcType=BIGINT}
+    where vehicle_type_id = #{vehicleTypeId,jdbcType=BIGINT}
+  </update>
+</mapper>

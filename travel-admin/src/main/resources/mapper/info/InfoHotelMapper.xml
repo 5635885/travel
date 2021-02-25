@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.traveladmin.modules.info.mapper.InfoHotelMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.it.traveladmin.modules.info.model.InfoHotel">
+        <id column="id" property="id" />
+        <result column="hotel_name" property="hotelName" />
+        <result column="introduc" property="introduc" />
+        <result column="province" property="province" />
+        <result column="city" property="city" />
+        <result column="county" property="county" />
+        <result column="village" property="village" />
+        <result column="address" property="address" />
+        <result column="price" property="price" />
+        <result column="created_time" property="createdTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>

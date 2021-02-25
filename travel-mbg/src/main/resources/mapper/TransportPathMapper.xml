@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mbg.mapper.TransportPathMapper">
+  <resultMap id="BaseResultMap" type="com.it.mbg.entity.TransportPath">
+    <id column="transport_path_id" jdbcType="BIGINT" property="transportPathId" />
+    <result column="transport_path" jdbcType="VARCHAR" property="transportPath" />
+    <result column="transport_path_sort" jdbcType="INTEGER" property="transportPathSort" />
+    <result column="transport_id" jdbcType="BIGINT" property="transportId" />
+    <result column="transport_province" jdbcType="VARCHAR" property="transportProvince" />
+    <result column="transport_city" jdbcType="VARCHAR" property="transportCity" />
+    <result column="transport_region" jdbcType="VARCHAR" property="transportRegion" />
+    <result column="transport_status" jdbcType="INTEGER" property="transportStatus" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    transport_path_id, transport_path, transport_path_sort, transport_id, transport_province, 
+    transport_city, transport_region, transport_status, begin_time, finish_time
+  </sql>
+  <select id="selectByExample" parameterType="com.it.mbg.entity.TransportPathExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from transport_path
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from transport_path
+    where transport_path_id = #{transportPathId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from transport_path
+    where transport_path_id = #{transportPathId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.it.mbg.entity.TransportPathExample">
+    delete from transport_path
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.it.mbg.entity.TransportPath">
+    insert into transport_path (transport_path_id, transport_path, transport_path_sort, 
+      transport_id, transport_province, transport_city, 
+      transport_region, transport_status, begin_time, 
+      finish_time)
+    values (#{transportPathId,jdbcType=BIGINT}, #{transportPath,jdbcType=VARCHAR}, #{transportPathSort,jdbcType=INTEGER}, 
+      #{transportId,jdbcType=BIGINT}, #{transportProvince,jdbcType=VARCHAR}, #{transportCity,jdbcType=VARCHAR}, 
+      #{transportRegion,jdbcType=VARCHAR}, #{transportStatus,jdbcType=INTEGER}, #{beginTime,jdbcType=TIMESTAMP}, 
+      #{finishTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.it.mbg.entity.TransportPath">
+    insert into transport_path
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="transportPathId != null">
+        transport_path_id,
+      </if>
+      <if test="transportPath != null">
+        transport_path,
+      </if>
+      <if test="transportPathSort != null">
+        transport_path_sort,
+      </if>
+      <if test="transportId != null">
+        transport_id,
+      </if>
+      <if test="transportProvince != null">
+        transport_province,
+      </if>
+      <if test="transportCity != null">
+        transport_city,
+      </if>
+      <if test="transportRegion != null">
+        transport_region,
+      </if>
+      <if test="transportStatus != null">
+        transport_status,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="finishTime != null">
+        finish_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="transportPathId != null">
+        #{transportPathId,jdbcType=BIGINT},
+      </if>
+      <if test="transportPath != null">
+        #{transportPath,jdbcType=VARCHAR},
+      </if>
+      <if test="transportPathSort != null">
+        #{transportPathSort,jdbcType=INTEGER},
+      </if>
+      <if test="transportId != null">
+        #{transportId,jdbcType=BIGINT},
+      </if>
+      <if test="transportProvince != null">
+        #{transportProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="transportCity != null">
+        #{transportCity,jdbcType=VARCHAR},
+      </if>
+      <if test="transportRegion != null">
+        #{transportRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="transportStatus != null">
+        #{transportStatus,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.it.mbg.entity.TransportPathExample" resultType="java.lang.Long">
+    select count(*) from transport_path
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update transport_path
+    <set>
+      <if test="record.transportPathId != null">
+        transport_path_id = #{record.transportPathId,jdbcType=BIGINT},
+      </if>
+      <if test="record.transportPath != null">
+        transport_path = #{record.transportPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transportPathSort != null">
+        transport_path_sort = #{record.transportPathSort,jdbcType=INTEGER},
+      </if>
+      <if test="record.transportId != null">
+        transport_id = #{record.transportId,jdbcType=BIGINT},
+      </if>
+      <if test="record.transportProvince != null">
+        transport_province = #{record.transportProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transportCity != null">
+        transport_city = #{record.transportCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transportRegion != null">
+        transport_region = #{record.transportRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transportStatus != null">
+        transport_status = #{record.transportStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.beginTime != null">
+        begin_time = #{record.beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.finishTime != null">
+        finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update transport_path
+    set transport_path_id = #{record.transportPathId,jdbcType=BIGINT},
+      transport_path = #{record.transportPath,jdbcType=VARCHAR},
+      transport_path_sort = #{record.transportPathSort,jdbcType=INTEGER},
+      transport_id = #{record.transportId,jdbcType=BIGINT},
+      transport_province = #{record.transportProvince,jdbcType=VARCHAR},
+      transport_city = #{record.transportCity,jdbcType=VARCHAR},
+      transport_region = #{record.transportRegion,jdbcType=VARCHAR},
+      transport_status = #{record.transportStatus,jdbcType=INTEGER},
+      begin_time = #{record.beginTime,jdbcType=TIMESTAMP},
+      finish_time = #{record.finishTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.it.mbg.entity.TransportPath">
+    update transport_path
+    <set>
+      <if test="transportPath != null">
+        transport_path = #{transportPath,jdbcType=VARCHAR},
+      </if>
+      <if test="transportPathSort != null">
+        transport_path_sort = #{transportPathSort,jdbcType=INTEGER},
+      </if>
+      <if test="transportId != null">
+        transport_id = #{transportId,jdbcType=BIGINT},
+      </if>
+      <if test="transportProvince != null">
+        transport_province = #{transportProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="transportCity != null">
+        transport_city = #{transportCity,jdbcType=VARCHAR},
+      </if>
+      <if test="transportRegion != null">
+        transport_region = #{transportRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="transportStatus != null">
+        transport_status = #{transportStatus,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null">
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where transport_path_id = #{transportPathId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.it.mbg.entity.TransportPath">
+    update transport_path
+    set transport_path = #{transportPath,jdbcType=VARCHAR},
+      transport_path_sort = #{transportPathSort,jdbcType=INTEGER},
+      transport_id = #{transportId,jdbcType=BIGINT},
+      transport_province = #{transportProvince,jdbcType=VARCHAR},
+      transport_city = #{transportCity,jdbcType=VARCHAR},
+      transport_region = #{transportRegion,jdbcType=VARCHAR},
+      transport_status = #{transportStatus,jdbcType=INTEGER},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP}
+    where transport_path_id = #{transportPathId,jdbcType=BIGINT}
+  </update>
+</mapper>

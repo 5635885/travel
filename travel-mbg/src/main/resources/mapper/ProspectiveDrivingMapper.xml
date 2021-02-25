@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mbg.mapper.ProspectiveDrivingMapper">
+  <resultMap id="BaseResultMap" type="com.it.mbg.entity.ProspectiveDriving">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="allow_driving" jdbcType="VARCHAR" property="allowDriving" />
+    <result column="allow_code" jdbcType="VARCHAR" property="allowCode" />
+    <result column="allow_truck" jdbcType="VARCHAR" property="allowTruck" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, allow_driving, allow_code, allow_truck, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.it.mbg.entity.ProspectiveDrivingExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prospective_driving
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prospective_driving
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from prospective_driving
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.it.mbg.entity.ProspectiveDrivingExample">
+    delete from prospective_driving
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.it.mbg.entity.ProspectiveDriving">
+    insert into prospective_driving (id, allow_driving, allow_code, 
+      allow_truck, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{allowDriving,jdbcType=VARCHAR}, #{allowCode,jdbcType=VARCHAR}, 
+      #{allowTruck,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.it.mbg.entity.ProspectiveDriving">
+    insert into prospective_driving
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="allowDriving != null">
+        allow_driving,
+      </if>
+      <if test="allowCode != null">
+        allow_code,
+      </if>
+      <if test="allowTruck != null">
+        allow_truck,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="allowDriving != null">
+        #{allowDriving,jdbcType=VARCHAR},
+      </if>
+      <if test="allowCode != null">
+        #{allowCode,jdbcType=VARCHAR},
+      </if>
+      <if test="allowTruck != null">
+        #{allowTruck,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.it.mbg.entity.ProspectiveDrivingExample" resultType="java.lang.Long">
+    select count(*) from prospective_driving
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update prospective_driving
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.allowDriving != null">
+        allow_driving = #{record.allowDriving,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allowCode != null">
+        allow_code = #{record.allowCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allowTruck != null">
+        allow_truck = #{record.allowTruck,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update prospective_driving
+    set id = #{record.id,jdbcType=BIGINT},
+      allow_driving = #{record.allowDriving,jdbcType=VARCHAR},
+      allow_code = #{record.allowCode,jdbcType=VARCHAR},
+      allow_truck = #{record.allowTruck,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.it.mbg.entity.ProspectiveDriving">
+    update prospective_driving
+    <set>
+      <if test="allowDriving != null">
+        allow_driving = #{allowDriving,jdbcType=VARCHAR},
+      </if>
+      <if test="allowCode != null">
+        allow_code = #{allowCode,jdbcType=VARCHAR},
+      </if>
+      <if test="allowTruck != null">
+        allow_truck = #{allowTruck,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.it.mbg.entity.ProspectiveDriving">
+    update prospective_driving
+    set allow_driving = #{allowDriving,jdbcType=VARCHAR},
+      allow_code = #{allowCode,jdbcType=VARCHAR},
+      allow_truck = #{allowTruck,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

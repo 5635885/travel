@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mbg.mapper.CustomerOrderMapper">
+  <resultMap id="BaseResultMap" type="com.it.mbg.entity.CustomerOrder">
+    <id column="customer_order_id" jdbcType="BIGINT" property="customerOrderId" />
+    <result column="member_id" jdbcType="VARCHAR" property="memberId" />
+    <result column="ware_house_id" jdbcType="VARCHAR" property="wareHouseId" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="customer_password" jdbcType="VARCHAR" property="customerPassword" />
+    <result column="sendsite" jdbcType="VARCHAR" property="sendsite" />
+    <result column="shipper_code" jdbcType="VARCHAR" property="shipperCode" />
+    <result column="logisit_code" jdbcType="VARCHAR" property="logisitCode" />
+    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
+    <result column="month_code" jdbcType="VARCHAR" property="monthCode" />
+    <result column="pay_type" jdbcType="INTEGER" property="payType" />
+    <result column="exp_type" jdbcType="VARCHAR" property="expType" />
+    <result column="cost" jdbcType="DOUBLE" property="cost" />
+    <result column="other_cost" jdbcType="DOUBLE" property="otherCost" />
+    <result column="is_notice" jdbcType="INTEGER" property="isNotice" />
+    <result column="start_date" jdbcType="VARCHAR" property="startDate" />
+    <result column="end_data" jdbcType="VARCHAR" property="endData" />
+    <result column="weight" jdbcType="DOUBLE" property="weight" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="volume" jdbcType="DOUBLE" property="volume" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="delete_status" jdbcType="INTEGER" property="deleteStatus" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    customer_order_id, member_id, ware_house_id, customer_name, customer_password, sendsite, 
+    shipper_code, logisit_code, order_code, month_code, pay_type, exp_type, cost, other_cost, 
+    is_notice, start_date, end_data, weight, quantity, volume, remark, create_time, update_time, 
+    delete_status, openid, user_code
+  </sql>
+  <select id="selectByExample" parameterType="com.it.mbg.entity.CustomerOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from customer_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from customer_order
+    where customer_order_id = #{customerOrderId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from customer_order
+    where customer_order_id = #{customerOrderId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.it.mbg.entity.CustomerOrderExample">
+    delete from customer_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.it.mbg.entity.CustomerOrder">
+    insert into customer_order (customer_order_id, member_id, ware_house_id, 
+      customer_name, customer_password, sendsite, 
+      shipper_code, logisit_code, order_code, 
+      month_code, pay_type, exp_type, 
+      cost, other_cost, is_notice, 
+      start_date, end_data, weight, 
+      quantity, volume, remark, 
+      create_time, update_time, delete_status, 
+      openid, user_code)
+    values (#{customerOrderId,jdbcType=BIGINT}, #{memberId,jdbcType=VARCHAR}, #{wareHouseId,jdbcType=VARCHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{customerPassword,jdbcType=VARCHAR}, #{sendsite,jdbcType=VARCHAR}, 
+      #{shipperCode,jdbcType=VARCHAR}, #{logisitCode,jdbcType=VARCHAR}, #{orderCode,jdbcType=VARCHAR}, 
+      #{monthCode,jdbcType=VARCHAR}, #{payType,jdbcType=INTEGER}, #{expType,jdbcType=VARCHAR}, 
+      #{cost,jdbcType=DOUBLE}, #{otherCost,jdbcType=DOUBLE}, #{isNotice,jdbcType=INTEGER}, 
+      #{startDate,jdbcType=VARCHAR}, #{endData,jdbcType=VARCHAR}, #{weight,jdbcType=DOUBLE}, 
+      #{quantity,jdbcType=INTEGER}, #{volume,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleteStatus,jdbcType=INTEGER}, 
+      #{openid,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.it.mbg.entity.CustomerOrder" useGeneratedKeys="true" keyProperty="customerOrderId">
+    insert into customer_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="customerOrderId != null">
+        customer_order_id,
+      </if>
+      <if test="memberId != null">
+        member_id,
+      </if>
+      <if test="wareHouseId != null">
+        ware_house_id,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="customerPassword != null">
+        customer_password,
+      </if>
+      <if test="sendsite != null">
+        sendsite,
+      </if>
+      <if test="shipperCode != null">
+        shipper_code,
+      </if>
+      <if test="logisitCode != null">
+        logisit_code,
+      </if>
+      <if test="orderCode != null">
+        order_code,
+      </if>
+      <if test="monthCode != null">
+        month_code,
+      </if>
+      <if test="payType != null">
+        pay_type,
+      </if>
+      <if test="expType != null">
+        exp_type,
+      </if>
+      <if test="cost != null">
+        cost,
+      </if>
+      <if test="otherCost != null">
+        other_cost,
+      </if>
+      <if test="isNotice != null">
+        is_notice,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+      <if test="endData != null">
+        end_data,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="volume != null">
+        volume,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="deleteStatus != null">
+        delete_status,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+      <if test="userCode != null">
+        user_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="customerOrderId != null">
+        #{customerOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="memberId != null">
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="wareHouseId != null">
+        #{wareHouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPassword != null">
+        #{customerPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="sendsite != null">
+        #{sendsite,jdbcType=VARCHAR},
+      </if>
+      <if test="shipperCode != null">
+        #{shipperCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logisitCode != null">
+        #{logisitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null">
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="monthCode != null">
+        #{monthCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="expType != null">
+        #{expType,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null">
+        #{cost,jdbcType=DOUBLE},
+      </if>
+      <if test="otherCost != null">
+        #{otherCost,jdbcType=DOUBLE},
+      </if>
+      <if test="isNotice != null">
+        #{isNotice,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=VARCHAR},
+      </if>
+      <if test="endData != null">
+        #{endData,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="volume != null">
+        #{volume,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteStatus != null">
+        #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.it.mbg.entity.CustomerOrderExample" resultType="java.lang.Long">
+    select count(*) from customer_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update customer_order
+    <set>
+      <if test="record.customerOrderId != null">
+        customer_order_id = #{record.customerOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.memberId != null">
+        member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wareHouseId != null">
+        ware_house_id = #{record.wareHouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerName != null">
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerPassword != null">
+        customer_password = #{record.customerPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendsite != null">
+        sendsite = #{record.sendsite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipperCode != null">
+        shipper_code = #{record.shipperCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logisitCode != null">
+        logisit_code = #{record.logisitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderCode != null">
+        order_code = #{record.orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.monthCode != null">
+        month_code = #{record.monthCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payType != null">
+        pay_type = #{record.payType,jdbcType=INTEGER},
+      </if>
+      <if test="record.expType != null">
+        exp_type = #{record.expType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cost != null">
+        cost = #{record.cost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.otherCost != null">
+        other_cost = #{record.otherCost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.isNotice != null">
+        is_notice = #{record.isNotice,jdbcType=INTEGER},
+      </if>
+      <if test="record.startDate != null">
+        start_date = #{record.startDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endData != null">
+        end_data = #{record.endData,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=DOUBLE},
+      </if>
+      <if test="record.quantity != null">
+        quantity = #{record.quantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.volume != null">
+        volume = #{record.volume,jdbcType=DOUBLE},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleteStatus != null">
+        delete_status = #{record.deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.openid != null">
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userCode != null">
+        user_code = #{record.userCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update customer_order
+    set customer_order_id = #{record.customerOrderId,jdbcType=BIGINT},
+      member_id = #{record.memberId,jdbcType=VARCHAR},
+      ware_house_id = #{record.wareHouseId,jdbcType=VARCHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      customer_password = #{record.customerPassword,jdbcType=VARCHAR},
+      sendsite = #{record.sendsite,jdbcType=VARCHAR},
+      shipper_code = #{record.shipperCode,jdbcType=VARCHAR},
+      logisit_code = #{record.logisitCode,jdbcType=VARCHAR},
+      order_code = #{record.orderCode,jdbcType=VARCHAR},
+      month_code = #{record.monthCode,jdbcType=VARCHAR},
+      pay_type = #{record.payType,jdbcType=INTEGER},
+      exp_type = #{record.expType,jdbcType=VARCHAR},
+      cost = #{record.cost,jdbcType=DOUBLE},
+      other_cost = #{record.otherCost,jdbcType=DOUBLE},
+      is_notice = #{record.isNotice,jdbcType=INTEGER},
+      start_date = #{record.startDate,jdbcType=VARCHAR},
+      end_data = #{record.endData,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=DOUBLE},
+      quantity = #{record.quantity,jdbcType=INTEGER},
+      volume = #{record.volume,jdbcType=DOUBLE},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      delete_status = #{record.deleteStatus,jdbcType=INTEGER},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      user_code = #{record.userCode,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.it.mbg.entity.CustomerOrder">
+    update customer_order
+    <set>
+      <if test="memberId != null">
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="wareHouseId != null">
+        ware_house_id = #{wareHouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPassword != null">
+        customer_password = #{customerPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="sendsite != null">
+        sendsite = #{sendsite,jdbcType=VARCHAR},
+      </if>
+      <if test="shipperCode != null">
+        shipper_code = #{shipperCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logisitCode != null">
+        logisit_code = #{logisitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null">
+        order_code = #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="monthCode != null">
+        month_code = #{monthCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        pay_type = #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="expType != null">
+        exp_type = #{expType,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null">
+        cost = #{cost,jdbcType=DOUBLE},
+      </if>
+      <if test="otherCost != null">
+        other_cost = #{otherCost,jdbcType=DOUBLE},
+      </if>
+      <if test="isNotice != null">
+        is_notice = #{isNotice,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=VARCHAR},
+      </if>
+      <if test="endData != null">
+        end_data = #{endData,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="volume != null">
+        volume = #{volume,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteStatus != null">
+        delete_status = #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null">
+        user_code = #{userCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where customer_order_id = #{customerOrderId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.it.mbg.entity.CustomerOrder">
+    update customer_order
+    set member_id = #{memberId,jdbcType=VARCHAR},
+      ware_house_id = #{wareHouseId,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_password = #{customerPassword,jdbcType=VARCHAR},
+      sendsite = #{sendsite,jdbcType=VARCHAR},
+      shipper_code = #{shipperCode,jdbcType=VARCHAR},
+      logisit_code = #{logisitCode,jdbcType=VARCHAR},
+      order_code = #{orderCode,jdbcType=VARCHAR},
+      month_code = #{monthCode,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=INTEGER},
+      exp_type = #{expType,jdbcType=VARCHAR},
+      cost = #{cost,jdbcType=DOUBLE},
+      other_cost = #{otherCost,jdbcType=DOUBLE},
+      is_notice = #{isNotice,jdbcType=INTEGER},
+      start_date = #{startDate,jdbcType=VARCHAR},
+      end_data = #{endData,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=DOUBLE},
+      quantity = #{quantity,jdbcType=INTEGER},
+      volume = #{volume,jdbcType=DOUBLE},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_status = #{deleteStatus,jdbcType=INTEGER},
+      openid = #{openid,jdbcType=VARCHAR},
+      user_code = #{userCode,jdbcType=VARCHAR}
+    where customer_order_id = #{customerOrderId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mbg.mapper.SigningMapper">
+  <resultMap id="BaseResultMap" type="com.it.mbg.entity.Signing">
+    <id column="signing_id" jdbcType="BIGINT" property="signingId" />
+    <result column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="identity_card_number" jdbcType="VARCHAR" property="identityCardNumber" />
+    <result column="signing_status" jdbcType="INTEGER" property="signingStatus" />
+    <result column="signing_note" jdbcType="VARCHAR" property="signingNote" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="transport_id" jdbcType="BIGINT" property="transportId" />
+    <result column="picture_address" jdbcType="VARCHAR" property="pictureAddress" />
+    <result column="signing_name" jdbcType="VARCHAR" property="signingName" />
+    <result column="signing_detail_address" jdbcType="VARCHAR" property="signingDetailAddress" />
+    <result column="signing_number" jdbcType="VARCHAR" property="signingNumber" />
+    <result column="signing_province" jdbcType="VARCHAR" property="signingProvince" />
+    <result column="signing_city" jdbcType="VARCHAR" property="signingCity" />
+    <result column="signing_region" jdbcType="VARCHAR" property="signingRegion" />
+    <result column="delete_status" jdbcType="INTEGER" property="deleteStatus" />
+    <result column="goods_order_id" jdbcType="BIGINT" property="goodsOrderId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    signing_id, order_number, identity_card_number, signing_status, signing_note, create_time, 
+    transport_id, picture_address, signing_name, signing_detail_address, signing_number, 
+    signing_province, signing_city, signing_region, delete_status, goods_order_id
+  </sql>
+  <select id="selectByExample" parameterType="com.it.mbg.entity.SigningExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from signing
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from signing
+    where signing_id = #{signingId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from signing
+    where signing_id = #{signingId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.it.mbg.entity.SigningExample">
+    delete from signing
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.it.mbg.entity.Signing">
+    insert into signing (signing_id, order_number, identity_card_number, 
+      signing_status, signing_note, create_time, 
+      transport_id, picture_address, signing_name, 
+      signing_detail_address, signing_number, signing_province, 
+      signing_city, signing_region, delete_status, 
+      goods_order_id)
+    values (#{signingId,jdbcType=BIGINT}, #{orderNumber,jdbcType=VARCHAR}, #{identityCardNumber,jdbcType=VARCHAR}, 
+      #{signingStatus,jdbcType=INTEGER}, #{signingNote,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{transportId,jdbcType=BIGINT}, #{pictureAddress,jdbcType=VARCHAR}, #{signingName,jdbcType=VARCHAR}, 
+      #{signingDetailAddress,jdbcType=VARCHAR}, #{signingNumber,jdbcType=VARCHAR}, #{signingProvince,jdbcType=VARCHAR}, 
+      #{signingCity,jdbcType=VARCHAR}, #{signingRegion,jdbcType=VARCHAR}, #{deleteStatus,jdbcType=INTEGER}, 
+      #{goodsOrderId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.it.mbg.entity.Signing">
+    insert into signing
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="signingId != null">
+        signing_id,
+      </if>
+      <if test="orderNumber != null">
+        order_number,
+      </if>
+      <if test="identityCardNumber != null">
+        identity_card_number,
+      </if>
+      <if test="signingStatus != null">
+        signing_status,
+      </if>
+      <if test="signingNote != null">
+        signing_note,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="transportId != null">
+        transport_id,
+      </if>
+      <if test="pictureAddress != null">
+        picture_address,
+      </if>
+      <if test="signingName != null">
+        signing_name,
+      </if>
+      <if test="signingDetailAddress != null">
+        signing_detail_address,
+      </if>
+      <if test="signingNumber != null">
+        signing_number,
+      </if>
+      <if test="signingProvince != null">
+        signing_province,
+      </if>
+      <if test="signingCity != null">
+        signing_city,
+      </if>
+      <if test="signingRegion != null">
+        signing_region,
+      </if>
+      <if test="deleteStatus != null">
+        delete_status,
+      </if>
+      <if test="goodsOrderId != null">
+        goods_order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="signingId != null">
+        #{signingId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCardNumber != null">
+        #{identityCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="signingStatus != null">
+        #{signingStatus,jdbcType=INTEGER},
+      </if>
+      <if test="signingNote != null">
+        #{signingNote,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transportId != null">
+        #{transportId,jdbcType=BIGINT},
+      </if>
+      <if test="pictureAddress != null">
+        #{pictureAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="signingName != null">
+        #{signingName,jdbcType=VARCHAR},
+      </if>
+      <if test="signingDetailAddress != null">
+        #{signingDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="signingNumber != null">
+        #{signingNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="signingProvince != null">
+        #{signingProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="signingCity != null">
+        #{signingCity,jdbcType=VARCHAR},
+      </if>
+      <if test="signingRegion != null">
+        #{signingRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteStatus != null">
+        #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="goodsOrderId != null">
+        #{goodsOrderId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.it.mbg.entity.SigningExample" resultType="java.lang.Long">
+    select count(*) from signing
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update signing
+    <set>
+      <if test="record.signingId != null">
+        signing_id = #{record.signingId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderNumber != null">
+        order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.identityCardNumber != null">
+        identity_card_number = #{record.identityCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signingStatus != null">
+        signing_status = #{record.signingStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.signingNote != null">
+        signing_note = #{record.signingNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.transportId != null">
+        transport_id = #{record.transportId,jdbcType=BIGINT},
+      </if>
+      <if test="record.pictureAddress != null">
+        picture_address = #{record.pictureAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signingName != null">
+        signing_name = #{record.signingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signingDetailAddress != null">
+        signing_detail_address = #{record.signingDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signingNumber != null">
+        signing_number = #{record.signingNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signingProvince != null">
+        signing_province = #{record.signingProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signingCity != null">
+        signing_city = #{record.signingCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signingRegion != null">
+        signing_region = #{record.signingRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleteStatus != null">
+        delete_status = #{record.deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsOrderId != null">
+        goods_order_id = #{record.goodsOrderId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update signing
+    set signing_id = #{record.signingId,jdbcType=BIGINT},
+      order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      identity_card_number = #{record.identityCardNumber,jdbcType=VARCHAR},
+      signing_status = #{record.signingStatus,jdbcType=INTEGER},
+      signing_note = #{record.signingNote,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      transport_id = #{record.transportId,jdbcType=BIGINT},
+      picture_address = #{record.pictureAddress,jdbcType=VARCHAR},
+      signing_name = #{record.signingName,jdbcType=VARCHAR},
+      signing_detail_address = #{record.signingDetailAddress,jdbcType=VARCHAR},
+      signing_number = #{record.signingNumber,jdbcType=VARCHAR},
+      signing_province = #{record.signingProvince,jdbcType=VARCHAR},
+      signing_city = #{record.signingCity,jdbcType=VARCHAR},
+      signing_region = #{record.signingRegion,jdbcType=VARCHAR},
+      delete_status = #{record.deleteStatus,jdbcType=INTEGER},
+      goods_order_id = #{record.goodsOrderId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.it.mbg.entity.Signing">
+    update signing
+    <set>
+      <if test="orderNumber != null">
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCardNumber != null">
+        identity_card_number = #{identityCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="signingStatus != null">
+        signing_status = #{signingStatus,jdbcType=INTEGER},
+      </if>
+      <if test="signingNote != null">
+        signing_note = #{signingNote,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transportId != null">
+        transport_id = #{transportId,jdbcType=BIGINT},
+      </if>
+      <if test="pictureAddress != null">
+        picture_address = #{pictureAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="signingName != null">
+        signing_name = #{signingName,jdbcType=VARCHAR},
+      </if>
+      <if test="signingDetailAddress != null">
+        signing_detail_address = #{signingDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="signingNumber != null">
+        signing_number = #{signingNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="signingProvince != null">
+        signing_province = #{signingProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="signingCity != null">
+        signing_city = #{signingCity,jdbcType=VARCHAR},
+      </if>
+      <if test="signingRegion != null">
+        signing_region = #{signingRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteStatus != null">
+        delete_status = #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="goodsOrderId != null">
+        goods_order_id = #{goodsOrderId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where signing_id = #{signingId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.it.mbg.entity.Signing">
+    update signing
+    set order_number = #{orderNumber,jdbcType=VARCHAR},
+      identity_card_number = #{identityCardNumber,jdbcType=VARCHAR},
+      signing_status = #{signingStatus,jdbcType=INTEGER},
+      signing_note = #{signingNote,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      transport_id = #{transportId,jdbcType=BIGINT},
+      picture_address = #{pictureAddress,jdbcType=VARCHAR},
+      signing_name = #{signingName,jdbcType=VARCHAR},
+      signing_detail_address = #{signingDetailAddress,jdbcType=VARCHAR},
+      signing_number = #{signingNumber,jdbcType=VARCHAR},
+      signing_province = #{signingProvince,jdbcType=VARCHAR},
+      signing_city = #{signingCity,jdbcType=VARCHAR},
+      signing_region = #{signingRegion,jdbcType=VARCHAR},
+      delete_status = #{deleteStatus,jdbcType=INTEGER},
+      goods_order_id = #{goodsOrderId,jdbcType=BIGINT}
+    where signing_id = #{signingId,jdbcType=BIGINT}
+  </update>
+</mapper>
