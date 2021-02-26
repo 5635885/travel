@@ -1,13 +1,11 @@
 package com.it.traveladmin.modules.info.controller;
 
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.it.traveladmin.common.api.CommonPage;
 import com.it.traveladmin.common.api.CommonResult;
 import com.it.traveladmin.modules.info.model.InfoHotel;
 import com.it.traveladmin.modules.info.query.InfoHotelQuery;
 import com.it.traveladmin.modules.info.query.SelectHotelQuery;
-import com.it.traveladmin.modules.ums.model.UmsAdmin;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
